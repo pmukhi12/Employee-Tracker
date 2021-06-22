@@ -8,6 +8,11 @@ class Store {
     read() {
         return this.connection.query('Select * FROM employee')
     }
+    searchbyFirstNameSQL(name) {
+        return this.connection.query('SELECT * FROM employee WHERE first_name = ?', name)
+    }
+
+ 
 }
 
 
