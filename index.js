@@ -21,7 +21,6 @@ async function addEmployee() {
         const departments = await store.getDepartments();
         const roles = await store.getRoles();
         const roleNames = roles.map(role => role.title)
-        console.log({roleNames})
         const employeeAnswers = await inquirer.prompt([
         ...questions.addEmployee,
         // which Department
@@ -39,7 +38,6 @@ async function addEmployee() {
             choices: roleNames
         }
     ])
-    console.log(employeeAnswers);
 
     }
     catch(e)

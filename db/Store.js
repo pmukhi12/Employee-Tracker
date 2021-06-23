@@ -9,7 +9,7 @@ class Store {
         return this.connection.query('Select * FROM employee');
     };
     searchbyFirstNameSQL(name) {
-        return this.connection.query('SELECT * FROM employee WHERE first_name = ?', name);
+        return this.connection.query('SELECT * FROM employee WHERE first_name = ' + name);
     };
     getDepartments() {
         return this.connection.query('SELECT * FROM department');
@@ -17,6 +17,9 @@ class Store {
     getRoles() {
         return this.connection.query('SELECT * FROM role');
     };
+    getIDFromDepartment() {
+        return this.connection.query('SELECT Id FROM department WHERE ')
+    }
 
 };
 
