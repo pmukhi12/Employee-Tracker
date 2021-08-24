@@ -5,7 +5,7 @@ class Store {
         this.connection = connection;
     };
 
-    read() {
+    viewAllEmployees() {
         return this.connection.query('Select * FROM employee');
     };
     searchbyFirstNameSQL(name) {
@@ -18,7 +18,7 @@ class Store {
         return this.connection.query('SELECT * FROM role');
     };
     getIDFromDepartment() {
-        return this.connection.query('SELECT Id FROM department WHERE ')
+        return this.connection.query('SELECT Id FROM employee.department WHERE ')
     }
 
 };
