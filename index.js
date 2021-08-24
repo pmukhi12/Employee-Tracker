@@ -1,14 +1,14 @@
 // require files/node packages
 const store = require('./DB/Store');
 const inquirer = require('inquirer');
-const questions = require('./utils/questions');
+
 
 function menuPrompt() {
     inquirer.prompt({
         name: "choice",
         type: "list",
         message: "What would you like to do?",
-        choices: ["See all Employees", "See all Departments", "See all Roles", "Add an Employee", "Add an Department", "Add an Role", "Update an Employee's Role", "Exit"]
+        choices: ["See all Employees", "See all Departments", "See all Roles", "Add an Employee", "Add an Department", "Add a Role", "Update an Employee's Role", "Exit"]
     }
     ).then((res) => {
         switch (res.choice) {
@@ -21,8 +21,9 @@ function menuPrompt() {
             case 'See all Roles':
                 seeAllRoles();
                 break;
-            default:
-                quit()            
+            case 'Add an Employee':
+                addEmployee();
+         
         }
     })
 }
@@ -37,13 +38,19 @@ async function seeAllEmployees() {
 async function seeAllDepartments() {
     const allDepartments = await store.getDepartments();
     console.table(allDepartments)
-    setTimeout(() => menuPrompt(), 5000)
+    setTimeout(() => menuPrompt(), 2000)
 }
 
-async function querySearchByLastName() {
-    const { name } = await inquirer.prompt(searchbyLastName)
-    store.searchbyLastNameSQL(name);
+async function seeAllRoles() {
+    const allRoles = await store.getRoles();
+    console.table(allRoles)
+    setTimeout(() => menuPrompt(), 2000)
 }
+
+
+
+
+
 
 //     searchbyFirstName: {
 //         name: "name",
@@ -70,32 +77,46 @@ async function querySearchByLastName() {
 // }
 async function addEmployee() {
     // get departments
-    try {
+   
         const departments = await store.getDepartments();
         const roles = await store.getRoles();
         const roleNames = roles.map(role => role.title)
         const employeeAnswers = await inquirer.prompt([
-            ...questions.addEmployee,
             // which Department
             {
-                name: "department_id",
+                name: "departmentName",
                 type: "list",
                 message: "Employee of which department",
                 choices: departments
             },
             // which Role
             {
-                name: "role_id",
+                name: "roleName",
                 type: "list",
                 message: "What is the employee's role?",
                 choices: roleNames
+            },
+            // Employee First Name
+            {
+                name: "firstName",
+                type: "input",
+                message: "What is the employee's first name?",
+            },
+            {
+                name: "lastName",
+                type: "input",
+                message: "What is the employee's last name?",
             }
-        ])
 
-    }
-    catch (e) {
-        console.log(e)
-    }
+        ]);
+
+        const departmentId = await store.getDepartmentID(employeeAnswers.departmentName);
+        const roleId = await store.getRoleID(employeeAnswers.roleName);
+        console.log(departmentId[0].id);
+        console.log(roleId[0].id);
+        
+
+
 }
 
 
