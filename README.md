@@ -1,7 +1,7 @@
 # Employee Tracker
   
   ## Description
-  Interact with mySql to view and Add Employees 
+  Command Line Application to manage an employee database
 
 
   ## License 
