@@ -38,5 +38,7 @@
   npm i
   ```
 
+- Configure db/connection.js to your SQL database
+- Run the schema and seed queries in your SQL database
 
   

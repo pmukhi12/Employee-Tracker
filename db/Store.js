@@ -13,8 +13,8 @@ class Store {
     getDepartments() {
         return this.connection.query('SELECT * FROM department');
     };
-    getDepartmentID(department_name) {
-        return this.connection.query('SELECT id FROM department Where name = "'+ department_name + '"');
+    getManagers() {
+        return this.connection.query('SELECT DISTINCT manager_id FROM employee Where manager_id is not null');
     };
 
     getRoles() {
@@ -25,12 +25,12 @@ class Store {
         return this.connection.query('SELECT id FROM role Where title = "' + roleName + '"');
     };
 
-    addEmployee(title, salary, departmentId) {
-        return this.connection.query('INSERT INTO employee (title, salary, department_id) VALUES ("'+ title + '", "' + salary + '", "' + department_id + '")');
+    addEmployeetoDB(first_name, last_name, roleId, managerId) {
+        return this.connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("'+ first_name + '", "' + last_name + '", "' + roleId + '", "' + managerId +'")');
     };
 
-    addRole(title, salary, departmentId) {
-        return this.connection.query('INSERT INTO role (title, salary, department_id) VALUES ("'+ title + '", "' + salary + '", "' + departmentId + '")');
+    addDepartment(departmentName) {
+        return this.connection.query('INSERT INTO department (name) VALUES ("'+ departmentName + '")');
     };
 
 
