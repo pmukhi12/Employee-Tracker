@@ -1,9 +1,4 @@
-employee-tracker.gif
-
-schema.png
-
-instructions.md
-
-db/connection.js
 node_modules
-
+Instructions.md
+schema.png
+employee-tracker.gif

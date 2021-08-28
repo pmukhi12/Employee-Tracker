@@ -23,6 +23,7 @@ function menuPrompt() {
                 break;
             case 'Add an Employee':
                 addEmployee();
+                break;
             case 'Add a Department':
                 addDepartment();
          
@@ -49,10 +50,24 @@ async function seeAllRoles() {
     setTimeout(() => menuPrompt(), 2000)
 }
 
+async function addDepartment() {
+    const departmentAnswers = await inquirer.prompt([
+        // Employee First Name
+        {
+            name: "departmentName",
+            type: "input",
+            message: "What is the department name?",
+        }
+    ])
+    
+    store.addDepartment(departmentAnswers.departmentName)
+    menuPrompt()
+
+}
+
 async function addEmployee() {
     // get departments
-   
-        const departments = await store.getDepartments();
+
         const roles = await store.getRoles();
         const managers = await store.getManagers();
         const managerIds = await managers.map(manager => manager.manager_id)
@@ -96,30 +111,7 @@ async function addEmployee() {
 
 }
 
-async function addDepartment() {
-    const departmentAnswers = await inquirer.prompt([
-        // Employee First Name
-        {
-            name: "departmentName",
-            type: "input",
-            message: "What is the department name?",
-        }
-    ])
-    
-    store.addDepartment(departmentAnswers.departmentName)
-    menuPrompt()
 
-}
 
-// async function menuQuestions() {
-//     const { choice } = await inquirer.prompt(menu);
 
-//     switch (choice) {
-//         case 'Search by Employee First Name': return querySearchByFirstName();
-//         case 'Search by Employee Last Name': return querySearchByLastName();
-//         case 'Add Employee': return addEmployee();
-//     }
-// }
-
-// menuQuestions();
 
